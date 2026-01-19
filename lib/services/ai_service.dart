@@ -7,7 +7,7 @@ class AIService {
   AIService() {
     _model = GenerativeModel(
       model: 'gemini-flash-latest',
-      apiKey: "AIzaSyDsNjP8BrIx6KB8WJvIzJ_hGSmC3J0gw7U",
+      apiKey: "AIzaSyDFokw1UwJpkihkVfX1eDfInaLg_vwhCoo",
     );
   }
 

@@ -9,9 +9,7 @@ import 'widgets/power_chart.dart';
 void main() {
   runApp(
     MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => SimulationService()),
-      ],
+      providers: [ChangeNotifierProvider(create: (_) => SimulationService())],
       child: const VoltWiseApp(),
     ),
   );
@@ -26,9 +24,9 @@ class VoltWiseApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color(0xFF0F172A),
-        textTheme: GoogleFonts.outfitTextTheme(Theme.of(context).textTheme).apply(
-          bodyColor: Colors.white,
-        ),
+        textTheme: GoogleFonts.outfitTextTheme(
+          Theme.of(context).textTheme,
+        ).apply(bodyColor: Colors.white),
       ),
       home: const DashboardScreen(),
     );
@@ -55,7 +53,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     showModalBottomSheet(
       context: context,
       backgroundColor: const Color(0xFF1E293B),
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
       builder: (context) => Container(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -65,11 +65,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 Icon(Icons.psychology, color: Color(0xFF38BDF8), size: 28),
                 SizedBox(width: 12),
-                Text("Gemini Insight", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+                Text(
+                  "Gemini Insight",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 16),
-            Text(result, style: const TextStyle(fontSize: 16, color: Colors.white70, height: 1.5)),
+            Text(
+              result,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white70,
+                height: 1.5,
+              ),
+            ),
             const SizedBox(height: 24),
             SizedBox(
               width: double.infinity,
@@ -79,9 +93,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   backgroundColor: const Color(0xFF38BDF8),
                   foregroundColor: Colors.black,
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
-                child: const Text("Apply Recommendation", style: TextStyle(fontWeight: FontWeight.bold)),
+                child: const Text(
+                  "Apply Recommendation",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ],
@@ -107,43 +126,75 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("VoltWise", style: GoogleFonts.audiowide(fontSize: 28, color: const Color(0xFF38BDF8))),
-                      const Text("Home Grid Monitor", style: TextStyle(color: Colors.white54, fontSize: 12)),
+                      Text(
+                        "VoltWise",
+                        style: GoogleFonts.audiowide(
+                          fontSize: 28,
+                          color: const Color(0xFF38BDF8),
+                        ),
+                      ),
+                      const Text(
+                        "Home Grid Monitor",
+                        style: TextStyle(color: Colors.white54, fontSize: 12),
+                      ),
                     ],
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 10,
+                    ),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [const Color(0xFF38BDF8).withOpacity(0.2), Colors.transparent],
+                        colors: [
+                          const Color(0xFF38BDF8).withOpacity(0.2),
+                          Colors.transparent,
+                        ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: const Color(0xFF38BDF8).withOpacity(0.3)),
+                      border: Border.all(
+                        color: const Color(0xFF38BDF8).withOpacity(0.3),
+                      ),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text("Current Bill", style: TextStyle(fontSize: 10, color: Colors.white54)),
-                        Text("₹${simulation.currentBill.toStringAsFixed(2)}", 
-                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF38BDF8))
+                        const Text(
+                          "Current Bill",
+                          style: TextStyle(fontSize: 10, color: Colors.white54),
+                        ),
+                        Text(
+                          "₹${simulation.currentBill.toStringAsFixed(2)}",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF38BDF8),
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-              
+
               const SizedBox(height: 24),
-              
+
               SizedBox(
                 height: 180,
                 child: PowerChart(history: simulation.usageHistory),
               ),
-              
+
               const SizedBox(height: 24),
-              const Text("Connected Load", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white70)),
+              const Text(
+                "Connected Load",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white70,
+                ),
+              ),
               const SizedBox(height: 12),
 
               Expanded(
@@ -164,15 +215,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ),
       ),
-      
+
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: _isAnalyzing ? null : () => _runAIAnalysis(simulation.devices),
+        onPressed: _isAnalyzing
+            ? null
+            : () => _runAIAnalysis(simulation.devices),
         backgroundColor: const Color(0xFF38BDF8),
         elevation: 10,
-        icon: _isAnalyzing 
-            ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.black, strokeWidth: 2)) 
+        icon: _isAnalyzing
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  color: Colors.black,
+                  strokeWidth: 2,
+                ),
+              )
             : const Icon(Icons.bolt, color: Colors.black),
-        label: Text(_isAnalyzing ? "Scanning..." : "Optimize AI", style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        label: Text(
+          _isAnalyzing ? "Scanning..." : "Optimize AI",
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
@@ -186,11 +252,16 @@ class DeviceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     IconData getIcon(String name) {
       switch (name) {
-        case 'ac_unit': return Icons.ac_unit;
-        case 'kitchen': return Icons.kitchen;
-        case 'computer': return Icons.computer;
-        case 'water_drop': return Icons.water_drop;
-        default: return Icons.device_unknown;
+        case 'ac_unit':
+          return Icons.ac_unit;
+        case 'kitchen':
+          return Icons.kitchen;
+        case 'computer':
+          return Icons.computer;
+        case 'water_drop':
+          return Icons.water_drop;
+        default:
+          return Icons.device_unknown;
       }
     }
 
@@ -203,12 +274,18 @@ class DeviceCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: device.isSafe ? Colors.white10 : Colors.redAccent.withOpacity(0.8),
+          color: device.isSafe
+              ? Colors.white10
+              : Colors.redAccent.withOpacity(0.8),
           width: 1,
         ),
         boxShadow: [
-          if (!device.isSafe) 
-            BoxShadow(color: Colors.redAccent.withOpacity(0.2), blurRadius: 12, spreadRadius: 2)
+          if (!device.isSafe)
+            BoxShadow(
+              color: Colors.redAccent.withOpacity(0.2),
+              blurRadius: 12,
+              spreadRadius: 2,
+            ),
         ],
       ),
       child: Padding(
@@ -221,7 +298,11 @@ class DeviceCard extends StatelessWidget {
                 color: Colors.black26,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Icon(getIcon(device.iconAsset), color: device.isSafe ? Colors.white70 : Colors.redAccent, size: 24),
+              child: Icon(
+                getIcon(device.iconAsset),
+                color: device.isSafe ? Colors.white70 : Colors.redAccent,
+                size: 24,
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -229,14 +310,21 @@ class DeviceCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(device.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 13, color: Colors.white60)),
+                  Text(
+                    device.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 13, color: Colors.white60),
+                  ),
                   const SizedBox(height: 4),
                   Text(
                     "${device.kwhUsage} kW",
                     style: TextStyle(
-                      fontSize: 18, 
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: device.isSafe ? Colors.white : const Color(0xFFFF5252),
+                      color: device.isSafe
+                          ? Colors.white
+                          : const Color(0xFFFF5252),
                     ),
                   ),
                 ],
